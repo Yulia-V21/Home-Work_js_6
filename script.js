@@ -89,12 +89,16 @@ console.log(strAb.match(strChek));
 телефона>). Функция должна возвращать true или false. Используйте
 регулярные выражения.*/
 
-function numberCheck(numb) {
-    let numCheck = /[+][0-9]{9,15}/gi;
-    console.log(numCheck.test(numb));
+function numberCheck(number) {
+
+    if(!number) return false;
+
+    let reg = /^\+?375 ?\(?(?:44|29|33|25)\)? ?[1-9]\d{2} ?-?\d{2} ?-?\d{2}$/;
+
+    console.log(reg.test(number));
 }
 numberCheck('+375296575476');
-numberCheck('375296575476');
+numberCheck('37529657543456776');
 
 /*9. Напишите ф-цию строгой проверки адреса эл. почты с учетом следующих
 условия:
@@ -110,11 +114,14 @@ numberCheck('375296575476');
 выражения.*/
 
 function emailCheck(email) {
- let regexp = /[0-9a-z][0-9a-z-_]{2,25}@[a-z]{2,11}.[a-z]{2,11}/gi;
+
+    if (!email) return false;
+
+ let regexp = /^[a-z0-9][a-z0-9._-]{0,28}[a-z0-9]@[a-z0-9][a-z0-9._]{1,11}\.[a-z]{2,11}$/gi;
  console.log(regexp.test(email));
 }
-emailCheck('yuliyavasileva21@gmail.com');//Что-то здесь не так.
-emailCheck('yuliyavasileva21gmail.com');
+emailCheck('yuliyavasileva21@gmail.com');
+emailCheck('yuliyavasileva21Gmail.com');
 
 /*10. Напишите ф-цию, которая из полного адреса с параметрами и без,
 например: https://tech.onliner.by/2018/04/26/smart-do-200/?
@@ -125,7 +132,13 @@ utm_source=main_tile&utm_medium=smartdo200#zag3 , получит адрес
 может и не быть каких-либо составляющих. Ф-ция должна возвращать
 массив.*/
 
-function siteAdd(address) {
+function parseUrl(value) {
     
+    if(!value) return false;
+
+    let reg = /^(https?:\/\/)([a-z0-9][a-z.-]+[a-z0-9.-]+[a-z0-9]\.[a-z]{2,11})(\/[^?#\s]+\/?)?\/?(\?[^#\s]+)?(#[\w\d]+)?$/i;
+
+    return value.match(reg);
+
 }
-siteAdd('https://tech.onliner.by/2018/04/26/smart-do-200/?utm_source=main_tile&utm_medium=smartdo200#zag3');
+console.log(parseUrl('https://tech.onliner.by/2018/04/26/smart-do-200/?utm_source=main_tile&utm_medium=smartdo200#zag3'));
